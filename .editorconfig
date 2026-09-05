@@ -1,0 +1,18 @@
+root = true
+
+[*.cs]
+indent_style = tab
+# netstandard2.0 has no System.Index/Range
+csharp_style_prefer_index_operator = false
+csharp_style_prefer_range_operator = false
+# Unused usings warn at build (needs EnforceCodeStyleInBuild, set in the csproj)
+dotnet_diagnostic.IDE0005.severity = warning
+# Object initializers over construct-then-assign
+dotnet_diagnostic.IDE0017.severity = warning
+# Fully qualified names simplify where the short name already binds
+dotnet_diagnostic.IDE0001.severity = warning
+dotnet_diagnostic.IDE0002.severity = warning
+# Collection expressions over builder-then-convert
+dotnet_diagnostic.IDE0305.severity = warning
+# Plain constructors read better than primary ones on these small structs
+csharp_style_prefer_primary_constructors = false

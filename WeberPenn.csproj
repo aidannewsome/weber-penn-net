@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Version>0.1.0</Version>
+    <Description>A C# port of Weber and Penn's tree model from Creation and Rendering of Realistic Trees, SIGGRAPH 1995.</Description>
+    <Authors>Maquette, Inc.</Authors>
+    <Company>Maquette, Inc.</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/aidannewsome/weber-penn-net</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/aidannewsome/weber-penn-net</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- The style analyzers run at build; a warning is a must-fix. -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
