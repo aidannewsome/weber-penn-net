@@ -949,7 +949,11 @@ namespace WeberPenn
 		public IReadOnlyList<Vector3> Vertices => vertices;
 		/// <summary>Triangles as three vertex indices, counter clockwise seen from outside.</summary>
 		public IReadOnlyList<int[]> Faces => faces;
-		/// <summary>Both in metres along the bark: U round the stem, V along it, so a texture tiles at its real size.</summary>
+		/// <summary>
+		/// Both in metres along the bark, V along the stem and U round it by the stem's base
+		/// radius, so a texture tiles at its real size and every quad stays a rectangle; where
+		/// the stem flares or tapers the picture stretches a little rather than skewing.
+		/// </summary>
 		public IReadOnlyList<Vector2> UV => uv;
 		public IReadOnlyList<Vector3> LeafVertices => leafVertices;
 		public IReadOnlyList<int[]> LeafFaces => leafFaces;
@@ -1013,7 +1017,7 @@ namespace WeberPenn
 					double angle = 2 * Math.PI * j / sides;
 					double r = ring.Radius * stem.LobeAt(angle);
 					vertices.Add(ring.Frame.Apply(new Vector3(Math.Cos(angle) * r, Math.Sin(angle) * r, 0)));
-					uv.Add(new Vector2(angle * ring.Radius, ring.Distance));
+					uv.Add(new Vector2(angle * stem.BaseRadius, ring.Distance));
 				}
 			}
 			int stride = sides + 1;
