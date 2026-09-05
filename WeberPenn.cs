@@ -963,14 +963,23 @@ namespace WeberPenn
 		readonly List<Vector2> leafUV = [];
 
 		/// <summary>
-		/// Meshes a tree with the given number of sides per ring, stems below the given level
-		/// only when one is given. The trunk's first segment gets extra rings so the flare
-		/// shows, and helical stems already carry their own sections.
+		/// Meshes a tree with up to the given number of sides per ring, stems below the given
+		/// level only when one is given. The trunk gets all the sides; a thinner stem gets
+		/// fewer, keeping a ring's facets about as wide as the trunk's, never fewer than
+		/// three, so the wood's triangles go where the eye can see them. The trunk's first
+		/// segment gets extra rings so the flare shows, and helical stems already carry their
+		/// own sections.
 		/// </summary>
 		public static Mesh Of(Tree tree, int sides = 8, int levels = int.MaxValue)
 		{
 			var mesh = new Mesh();
-			foreach (Stem stem in tree.Stems) if (stem.Level < levels) mesh.AddStem(stem, sides);
+			double facet = tree.Trunk == null ? 0 : 2 * Math.PI * tree.Trunk.BaseRadius / sides;
+			foreach (Stem stem in tree.Stems)
+			{
+				if (stem.Level >= levels) continue;
+				int n = facet > 0 ? (int)Math.Ceiling(2 * Math.PI * stem.BaseRadius / facet) : sides;
+				mesh.AddStem(stem, Math.Max(3, Math.Min(sides, n)));
+			}
 			foreach (Leaf leaf in tree.Leaves) mesh.AddLeaf(leaf);
 			return mesh;
 		}
