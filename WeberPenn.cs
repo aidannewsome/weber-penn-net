@@ -577,7 +577,8 @@ namespace WeberPenn
 			// Section 4.5: how many leaves, by the stem's position along its parent.
 			if (level == p.Levels - 1 && p.Leaves != 0)
 			{
-				double ratio = parent == null ? 0 : offset / parent.Length;
+				// A lone stem, Levels of 1, takes its leaves as a stem at its parent's top would.
+				double ratio = parent == null ? 1 : offset / parent.Length;
 				b.LeavesPerSegment = Math.Abs(p.Leaves) * p.ShapeRatio(4, ratio) * p.Quality / b.SegCount;
 			}
 
@@ -962,13 +963,14 @@ namespace WeberPenn
 		readonly List<Vector2> leafUV = [];
 
 		/// <summary>
-		/// Meshes a tree with the given number of sides per ring. The trunk's first segment gets
-		/// extra rings so the flare shows, and helical stems already carry their own sections.
+		/// Meshes a tree with the given number of sides per ring, stems below the given level
+		/// only when one is given. The trunk's first segment gets extra rings so the flare
+		/// shows, and helical stems already carry their own sections.
 		/// </summary>
-		public static Mesh Of(Tree tree, int sides = 8)
+		public static Mesh Of(Tree tree, int sides = 8, int levels = int.MaxValue)
 		{
 			var mesh = new Mesh();
-			foreach (Stem stem in tree.Stems) mesh.AddStem(stem, sides);
+			foreach (Stem stem in tree.Stems) if (stem.Level < levels) mesh.AddStem(stem, sides);
 			foreach (Leaf leaf in tree.Leaves) mesh.AddLeaf(leaf);
 			return mesh;
 		}
