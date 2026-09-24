@@ -5,8 +5,7 @@
     <LangVersion>latest</LangVersion>
     <Version>0.1.0</Version>
     <Description>A C# port of Weber and Penn's tree model from Creation and Rendering of Realistic Trees, SIGGRAPH 1995.</Description>
-    <Authors>Maquette, Inc.</Authors>
-    <Company>Maquette, Inc.</Company>
+    <Authors>Aidan Newsome</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/aidannewsome/weber-penn-net</RepositoryUrl>
     <PackageProjectUrl>https://github.com/aidannewsome/weber-penn-net</PackageProjectUrl>
